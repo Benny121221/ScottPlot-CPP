@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CSharp Wrapper CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "scatter -x \"1 2 3, 2 3\" -y  \"2 3 2, 1 1\" -o C:/Users/benny/Desktop/b.png --noDrawMarkers"
+    }
+  }
+}
