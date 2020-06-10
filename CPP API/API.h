@@ -2,6 +2,12 @@
 #include <memory>
 #include <string>
 
-__declspec(dllexport) extern void plot_scatter(double xs[], double ys[], char* output, int num_points);
-__declspec(dllexport) extern void plot_scatter(double xs[], double ys[], std::string* output, int num_points);
-__declspec(dllexport) extern void set_dimensions(int width, int height);
+namespace ScottPlot {
+	class __declspec(dllexport) PlotSettings {
+	public:
+		PlotSettings(int width = 800, int height = 600);
+		int width, height;
+	};
+
+	__declspec(dllexport) void plot_scatter(double xs[], double ys[], char* output, int num_points, std::shared_ptr<PlotSettings> settings);
+}
