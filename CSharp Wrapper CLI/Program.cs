@@ -19,16 +19,22 @@ namespace CSharp_Wrapper_CLI
 
             [Option('o', "output", Required = true)]
             public string output { get; set; }
+
+            [Option('w', "width", Required = false, Default = 800)]
+            public int width { get; set; }
+
+            [Option('h', "height", Required = false, Default = 600)]
+            public int height{ get; set; }
         }
 
 
         static void Main(string[] args)
         {
-            ScottPlot.Plot plt = new ScottPlot.Plot();
             string plotType = args[0];
 
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
             {
+                ScottPlot.Plot plt = new ScottPlot.Plot(o.width, o.height);
                 switch (plotType.ToLower())
                 {
                     case "scatter":

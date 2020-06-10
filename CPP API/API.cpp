@@ -4,10 +4,10 @@
 #include <Windows.h>
 #include <stdio.h>
 #include <string.h>
-#include <vector>
 #include <string>
 
-#pragma warning(disable: 4996)
+int plot_width = 800;
+int plot_height = 600;
 
 char* get_current_directory() {
 	char buffer[MAX_PATH];
@@ -19,7 +19,18 @@ void run_process(char* pathargstr) {
 	system(pathargstr);
 }
 
-void plot_scatter(double* xs, double* ys, char* output, int num_points)
+void plot_scatter(double xs[], double ys[], std::string* output, int num_points)
+{
+	plot_scatter(xs, ys, (char*)output->c_str(), num_points);
+}
+
+void set_dimensions(int width, int height)
+{
+	plot_width = width;
+	plot_height = height;
+}
+
+void plot_scatter(double xs[], double ys[], char* output, int num_points)
 {
 	char* directory = get_current_directory();
 	for (int i = 0; i < 2; i++) {
@@ -33,31 +44,32 @@ void plot_scatter(double* xs, double* ys, char* output, int num_points)
 		}
 		*last_slash = '\0';
 	}
-	
+
 	char executable_path[MAX_PATH];
 	strcpy_s(executable_path, directory);
 	strcat_s(executable_path, "/CSharp Wrapper CLI/bin/Release/netcoreapp3.1/CSharp Wrapper CLI.exe");
 
-	int length = 500 + 11 * num_points * 2 + 2 * MAX_PATH;
-	char* path_and_args = (char*)calloc(length, sizeof(char));
-	path_and_args[0] = '"';
-	strcat(path_and_args, executable_path);
-	strcat(path_and_args, "\" scatter -x ");
+	int length = 510 + 11 * num_points * 2 + 2 * MAX_PATH;
+	//std::unique_ptr<char> path_and_args = std::unique_ptr<char>(new char[length]);
+	std::unique_ptr<std::string> path_and_args = static_cast<std::unique_ptr<std::string>>(new std::string());
+	*path_and_args += '"';
+	*path_and_args += executable_path;
+	*path_and_args += "\" scatter -x ";
 	for (int i = 0; i < num_points; i++) {
-		strcat(path_and_args, (char*)std::to_string(xs[i]).c_str());
-		strcat(path_and_args, " ");
+		*path_and_args += std::to_string(xs[i]) + " ";
 	}
 
-	strcat(path_and_args, "-y ");
+	*path_and_args += "-y ";
 	for (int i = 0; i < num_points; i++) {
-		strcat(path_and_args, (char*)std::to_string(ys[i]).c_str());
-		strcat(path_and_args, " ");
+		*path_and_args += std::to_string(ys[i]) + " ";
 	}
 
-	strcat(path_and_args, "-o ");
-	strcat(path_and_args, output);
+	*path_and_args += "-o ";
+	*path_and_args += output;
+
+	*path_and_args += " -w " + std::to_string(plot_width);
+	*path_and_args += " -h " + std::to_string(plot_height);
 
 
-	run_process(path_and_args);
-	free(path_and_args);
+	run_process((char*)path_and_args->c_str());
 }
