@@ -49,8 +49,6 @@ void plot_scatter(double xs[], double ys[], char* output, int num_points)
 	strcpy_s(executable_path, directory);
 	strcat_s(executable_path, "/CSharp Wrapper CLI/bin/Release/netcoreapp3.1/CSharp Wrapper CLI.exe");
 
-	int length = 510 + 11 * num_points * 2 + 2 * MAX_PATH;
-	//std::unique_ptr<char> path_and_args = std::unique_ptr<char>(new char[length]);
 	std::unique_ptr<std::string> path_and_args = static_cast<std::unique_ptr<std::string>>(new std::string());
 	*path_and_args += '"';
 	*path_and_args += executable_path;
