@@ -16,7 +16,6 @@ char* get_current_directory() {
 }
 
 void run_process(std::string pathargstr) {
-	puts((pathargstr).c_str());
 	system((pathargstr).c_str());
 }
 
@@ -32,7 +31,7 @@ namespace ScottPlot {
 	void plot_scatter(double** xs, double** ys, char* output, int num_points[], int num_graphs, std::shared_ptr<PlotSettings> settings)
 	{
 		char* directory = get_current_directory();
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			char* pos = directory;
 			char* last_slash = pos;
 			while (*pos) {
@@ -45,7 +44,6 @@ namespace ScottPlot {
 		}
 
 		char executable_path[MAX_PATH];
-		puts(directory);
 		strcpy_s(executable_path, directory);
 		strcat_s(executable_path, "\\CSharp Wrapper CLI\\bin\\Release\\netcoreapp3.1\\CSharp Wrapper CLI.exe");
 
@@ -88,9 +86,6 @@ namespace ScottPlot {
 		}
 		
 		*path_and_args = "start \"\" " + *path_and_args;
-
-		std::cout << *path_and_args << std::endl;
-
 
 		run_process(*path_and_args);
 	}
