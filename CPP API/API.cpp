@@ -16,7 +16,6 @@ char* get_current_directory() {
 }
 
 void run_process(char* pathargstr) {
-	puts(pathargstr);
 	system(pathargstr);
 }
 
@@ -45,7 +44,6 @@ void plot_scatter(double* xs, double* ys, char* output, int num_points)
 	strcat(path_and_args, executable_path);
 	strcat(path_and_args, "\" scatter -x ");
 	for (int i = 0; i < num_points; i++) {
-		puts(path_and_args);
 		strcat(path_and_args, (char*)std::to_string(xs[i]).c_str());
 		strcat(path_and_args, " ");
 	}
