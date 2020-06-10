@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "ri5+cp3uO10CvfLTHcBxDZ7QaasX8Q04TIzm1bDo2wJ3GZCoWiylemDlzFjyQ2JBOMy5iDMMsZ0ls4/IEgol0Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\benny\\source\\repos\\ScottPlot-CPP\\CSharp Wrapper CLI\\CSharp Wrapper CLI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\benny\\.nuget\\packages\\commandlineparser\\2.8.0\\commandlineparser.2.8.0.nupkg.sha512",
+    "C:\\Users\\benny\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\benny\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\benny\\.nuget\\packages\\scottplot\\4.0.35\\scottplot.4.0.35.nupkg.sha512",
+    "C:\\Users\\benny\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
