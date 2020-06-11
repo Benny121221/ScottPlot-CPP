@@ -11,4 +11,5 @@ namespace ScottPlot {
 	};
 
 	__declspec(dllexport) void plot_scatter(double** xs, double** ys, char* output, int num_points[], int num_graphs, std::shared_ptr<PlotSettings> settings);
+	__declspec(dllexport) void plot_signal(double** ys, double sampleRates[], double offsets[], char* output, int num_points[], int num_graphs, std::shared_ptr<PlotSettings> settings);
 }
