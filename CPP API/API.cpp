@@ -16,6 +16,12 @@ char* get_current_directory() {
 }
 
 void run_process(std::string pathargstr) {
+#if defined _WIN32 || defined _WIN64
+	pathargstr = "start \"\" " + pathargstr;
+#else
+	pathargstr = ". " + pathargstr
+#endif
+
 	system((pathargstr).c_str());
 }
 
@@ -84,8 +90,6 @@ namespace ScottPlot {
 		if (!settings->showMarker) {
 			*path_and_args += " --noDrawMarkers";
 		}
-		
-		*path_and_args = "start \"\" " + *path_and_args;
 
 		run_process(*path_and_args);
 	}

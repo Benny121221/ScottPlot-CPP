@@ -1,5 +1,7 @@
 # ScottPlot-CPP
-A (very basic) port of ScottPlot to C++, currently runs exclusively on Windows. This is a hobby project. It lacks most of ScottPlot's features. If you need a C++ plotting library, I suggest this matplotlib port: https://github.com/lava/matplotlib-cpp or a library written originally for C/C++.
+A (very basic) port of ScottPlot to C++. This is a hobby project. It lacks most of ScottPlot's features. If you need a C++ plotting library, I suggest this matplotlib port: https://github.com/lava/matplotlib-cpp or a library written originally for C/C++.
+
+ScottPlot: https://github.com/swharden/ScottPlot 
 
 # Contribution
 Contribute if you feel like it. I am not a C++ programmer so I'm sure some of my code is questionable.
