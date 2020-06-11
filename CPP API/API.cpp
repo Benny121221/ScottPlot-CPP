@@ -1,7 +1,6 @@
 #include "pch.h" // use stdafx.h in Visual Studio 2017 and earlier
 #include "API.h"
 #include <stdlib.h>
-#include <Windows.h>
 #include <stdio.h>
 #include <string.h>
 #include <string>
