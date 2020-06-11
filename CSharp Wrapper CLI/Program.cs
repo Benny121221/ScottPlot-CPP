@@ -41,7 +41,6 @@ namespace CSharp_Wrapper_CLI
 
 		static void Main(string[] args)
 		{
-			Console.WriteLine("a");
 			Parser.Default.ParseArguments<ScatterOptions>(args)
 				.WithParsed<ScatterOptions>(o =>
 				{
