@@ -49,7 +49,7 @@ namespace CSharp_Wrapper_CLI
 			[Option("noDrawMarkers", Required = false, Default = false)]
 			public bool noDrawMarkers { get; set; }
 
-			[Option('n', "names", Required = false, Separator = ',')]
+			[Option('n', "names", Required = false, Separator = ',', Default = null)]
 			public IEnumerable<string> names { get; set; }
 
 		}
@@ -57,10 +57,11 @@ namespace CSharp_Wrapper_CLI
 
 		static void Main(string[] args)
 		{
-			//foreach (string curr in args) {
+			//foreach (string curr in args)
+			//{
 			//	Console.WriteLine(curr);
 			//}
-			//string x = Console.ReadLine();
+			//Console.ReadLine();
 			Parser.Default.ParseArguments<ScatterOptions, SignalOptions>(args)
 				.WithParsed<ScatterOptions>(o =>
 				{
@@ -68,7 +69,8 @@ namespace CSharp_Wrapper_CLI
 					string[] xs_array = o.xs.Split(',').Select(s => s.Trim()).ToArray();
 					string[] ys_array = o.ys.Split(',').Select(s => s.Trim()).ToArray();
 					string[] label_array = null;
-					if (o.names != null) {
+
+					if (o.names != null && o.names.Count() > 0) {
 						label_array = o.names.ToArray();
 					}
 
@@ -81,7 +83,7 @@ namespace CSharp_Wrapper_CLI
 						plt.PlotScatter(curr_xs, curr_ys, lineWidth: !o.noDrawLine ? 1 : 0, markerSize: !o.noDrawMarkers ? 5 : 0, label: label_array != null ? label_array[i] : null);
 					}
 
-					if (o.names != null)
+										if (o.names != null)
 					{
 						plt.Legend();
 					}
@@ -94,7 +96,8 @@ namespace CSharp_Wrapper_CLI
 					double[] sampleRatesArray = o.sampleRates.ToArray();
 					double[] offsetsArray = o.offsets.ToArray();
 					string[] label_array = null;
-					if (o.names != null)
+
+					if (o.names != null && o.names.Count() > 0)
 					{
 						label_array = o.names.ToArray();
 					}
