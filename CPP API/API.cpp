@@ -22,8 +22,8 @@ void run_process(std::string pathargstr) {
 #else
 	pathargstr = ". " + pathargstr
 #endif
-	
-	system((pathargstr).c_str());
+
+		system((pathargstr).c_str());
 }
 
 namespace ScottPlot {
@@ -65,7 +65,7 @@ namespace ScottPlot {
 		strcat_s(buffer, MAXPATHSIZE, "\\CSharp Wrapper CLI\\bin\\Release\\netcoreapp3.1\\CSharp Wrapper CLI.exe");
 	}
 
-	void plot_scatter(double** xs, double** ys, char* output, int num_points[], int num_graphs, std::shared_ptr<PlotSettings> settings)
+	void plot_scatter(double** xs, double** ys, char* output, int num_points[], int num_graphs, std::shared_ptr<PlotSettings> settings, std::string labels[])
 	{
 		char executable_path[MAX_PATH];
 		get_wrapper_path(executable_path);
@@ -97,14 +97,23 @@ namespace ScottPlot {
 		*path_and_args += output;
 		*path_and_args += '\"';
 
-		puts(path_and_args->c_str());
+		if (labels != nullptr) {
+			*path_and_args += " -n ";
+			for (int i = 0; i < num_graphs; i++) {
+				*path_and_args += labels[i];
+
+				if (i != num_graphs - 1) {
+					*path_and_args += ",";
+				}
+			}
+		}
 
 		ScottPlot::append_generic_options(path_and_args, settings);
 
 		run_process(*path_and_args);
 	}
 
-	void plot_signal(double** ys, double sampleRates[], double offsets[], char* output, int num_points[], int num_graphs, std::shared_ptr<PlotSettings> settings)
+	void plot_signal(double** ys, double sampleRates[], double offsets[], char* output, int num_points[], int num_graphs, std::shared_ptr<PlotSettings> settings, std::string labels[])
 	{
 		char executable_path[MAX_PATH];
 		get_wrapper_path(executable_path);
@@ -124,7 +133,7 @@ namespace ScottPlot {
 
 		*path_and_args += "\" --sampleRates ";
 		for (int i = 0; i < num_graphs; i++) {
-			*path_and_args += std::to_string(sampleRates[i]); 
+			*path_and_args += std::to_string(sampleRates[i]);
 			if (i != num_graphs - 1) {
 				*path_and_args += ",";
 			}
@@ -141,6 +150,17 @@ namespace ScottPlot {
 		*path_and_args += " -o \"";
 		*path_and_args += output;
 		*path_and_args += '\"';
+
+		if (labels != nullptr) {
+			*path_and_args += " -n ";
+			for (int i = 0; i < num_graphs; i++) {
+				*path_and_args += labels[i];
+
+				if (i != num_graphs - 1) {
+					*path_and_args += ",";
+				}
+			}
+		}
 
 		ScottPlot::append_generic_options(path_and_args, settings);
 

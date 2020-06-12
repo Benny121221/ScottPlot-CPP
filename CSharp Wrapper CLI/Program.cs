@@ -49,6 +49,9 @@ namespace CSharp_Wrapper_CLI
 			[Option("noDrawMarkers", Required = false, Default = false)]
 			public bool noDrawMarkers { get; set; }
 
+			[Option('n', "names", Required = false, Separator = ',')]
+			public IEnumerable<string> names { get; set; }
+
 		}
 
 
@@ -64,13 +67,23 @@ namespace CSharp_Wrapper_CLI
 					ScottPlot.Plot plt = new ScottPlot.Plot(o.width, o.height);
 					string[] xs_array = o.xs.Split(',').Select(s => s.Trim()).ToArray();
 					string[] ys_array = o.ys.Split(',').Select(s => s.Trim()).ToArray();
+					string[] label_array = null;
+					if (o.names != null) {
+						label_array = o.names.ToArray();
+					}
+
 					for (int i = 0; i < xs_array.Length; i++)
 					{
 						string[] curr_xs_str = xs_array[i].Split(' ');
 						string[] curr_ys_str = ys_array[i].Split(' ');
 						double[] curr_xs = curr_xs_str.Select(s => double.Parse(s)).ToArray();
 						double[] curr_ys = curr_ys_str.Select(s => double.Parse(s)).ToArray();
-						plt.PlotScatter(curr_xs, curr_ys, lineWidth: !o.noDrawLine ? 1 : 0, markerSize: !o.noDrawMarkers ? 5 : 0);
+						plt.PlotScatter(curr_xs, curr_ys, lineWidth: !o.noDrawLine ? 1 : 0, markerSize: !o.noDrawMarkers ? 5 : 0, label: label_array != null ? label_array[i] : null);
+					}
+
+					if (o.names != null)
+					{
+						plt.Legend();
 					}
 
 					plt.SaveFig(o.output);
@@ -80,11 +93,22 @@ namespace CSharp_Wrapper_CLI
 					string[] ys_array = o.ys.Split(',').Select(s => s.Trim()).ToArray();
 					double[] sampleRatesArray = o.sampleRates.ToArray();
 					double[] offsetsArray = o.offsets.ToArray();
+					string[] label_array = null;
+					if (o.names != null)
+					{
+						label_array = o.names.ToArray();
+					}
+
 					for (int i = 0; i < ys_array.Length; i++)
 					{
 						string[] curr_ys_str = ys_array[i].Split(' ');
 						double[] curr_ys = curr_ys_str.Select(s => double.Parse(s)).ToArray();
-						plt.PlotSignal(curr_ys, sampleRatesArray[i], offsetsArray[i], lineWidth: !o.noDrawLine ? 1 : 0, markerSize: !o.noDrawMarkers ? 5 : 0);
+						plt.PlotSignal(curr_ys, sampleRatesArray[i], offsetsArray[i], lineWidth: !o.noDrawLine ? 1 : 0, markerSize: !o.noDrawMarkers ? 5 : 0, label: label_array != null ? label_array[i] : null);
+					}
+
+					if (o.names != null)
+					{
+						plt.Legend();
 					}
 
 					plt.SaveFig(o.output);
